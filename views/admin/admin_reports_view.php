@@ -120,7 +120,7 @@ $content = '
             border-radius: 10px;
         }
 
-        .progress-bar-custom {
+        .progress {
             height: 8px;
             border-radius: 4px;
             background: var(--light-color);
@@ -243,13 +243,13 @@ $content = '
                             </div>
                         </div>
                     </div>
-                    <div class="progress-bar-custom" style="background-color: #3b82f640;">
+                    <div class="progress" style="background-color: #3b82f640;">
                         <div class="progress bg-danger" style="width: ' . ($total_content > 0 ? round(($stats['total_questions'] / $total_content) * 100, 1) : 0) . '%;"></div>
                     </div>
-                    <div class="progress-bar-custom" style="background-color: #10b98140;">
+                    <div class="progress" style="background-color: #10b98140;">
                         <div class="progress" style="width: ' . ($total_content > 0 ? round(($stats['total_answers'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--success-color);"></div>
                     </div>
-                    <div class="progress-bar-custom" style="background-color: #4f46e540;">
+                    <div class="progress" style="background-color: #4f46e540;">
                         <div class="progress" style="width: ' . ($total_content > 0 ? round(($stats['total_comments'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--info-color);"></div>
                     </div>
                 </div>
