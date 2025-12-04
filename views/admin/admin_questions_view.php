@@ -278,10 +278,10 @@ foreach ($questions as $q) {
                     </div>
                     
                     <div class="action-buttons">
-                        <a href="../question.php?id=' . $q['id_pertanyaan'] . '" class="btn-action btn-primary">
+                        <a href="../question.php?id=' . $q['id_pertanyaan'] . '" class="btn-action btn-primary" style="text-decoration: none;">
                             <i class="fas fa-eye me-1"></i>Lihat Detail
                         </a>
-                        <button class="btn-action btn-danger" onclick="confirmDelete(' . $q['id_pertanyaan'] . ', \'question\')">
+                        <button class="btn-action" style="color: red;" onclick="confirmDelete(' . $q['id_pertanyaan'] . ', \'question\')">
                             <i class="fas fa-trash me-1"></i>Hapus
                         </button>
                     </div>
