@@ -1,0 +1,23 @@
+# 🖼️ Default Avatar
+
+File ini adalah placeholder untuk avatar default.
+Dalam implementasi production, ganti dengan gambar avatar yang sebenarnya.
+
+## Cara Mengganti Default Avatar:
+
+1. Siapkan gambar avatar dengan format PNG/JPG
+2. Ukuran yang disarankan: 150x150 pixel
+3. Upload ke folder `uploads/` dengan nama `default-avatar.png`
+4. Pastikan permission file dapat dibaca oleh web server
+
+## Contoh Avatar:
+
+Anda bisa menggunakan:
+- Avatar dari layanan seperti UI Avatars
+- Gambar dengan background transparan
+- Gambar dengan desain netral (silhouette, icon user, dll)
+
+## Note:
+
+File ini hanya sebagai placeholder. Untuk penggunaan production, 
+pastikan memiliki file gambar avatar yang sesungguhnya.
