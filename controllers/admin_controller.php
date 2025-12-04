@@ -293,8 +293,8 @@ function handle_admin_reports() {
     $stats = get_admin_dashboard_stats($conn);
     $recent_questions = get_recent_questions($conn, 5);
     $recent_users = get_recent_users_simple($conn, 5);
-    $top_questioners = get_top_questioners($conn, 5);
-    $top_answerers = get_top_answerers($conn, 5);
+    $top_questioners = get_top_questioners($conn, 10);
+    $top_answerers = get_top_answerers($conn, 10);
 
     mysqli_close($conn);
     

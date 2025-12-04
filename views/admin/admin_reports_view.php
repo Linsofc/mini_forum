@@ -226,7 +226,7 @@ $content = '
                     <div class="row text-center">
                         <div class="col-4">
                             <div class="mb-3">
-                                <div class="stats-number text-primary">' . number_format($stats['total_questions']) . '</div>
+                                <div class="stats-number text-danger">' . number_format($stats['total_questions']) . '</div>
                                 <small class="text-muted">Pertanyaan</small>
                             </div>
                         </div>
@@ -244,13 +244,13 @@ $content = '
                         </div>
                     </div>
                     <div class="progress-bar-custom" style="background-color: #3b82f640;">
-                        <div class="progress-fill" style="width: ' . ($total_content > 0 ? round(($stats['total_questions'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--primary-color);"></div>
+                        <div class="progress bg-danger" style="width: ' . ($total_content > 0 ? round(($stats['total_questions'] / $total_content) * 100, 1) : 0) . '%;"></div>
                     </div>
                     <div class="progress-bar-custom" style="background-color: #10b98140;">
-                        <div class="progress-fill" style="width: ' . ($total_content > 0 ? round(($stats['total_answers'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--success-color);"></div>
+                        <div class="progress" style="width: ' . ($total_content > 0 ? round(($stats['total_answers'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--success-color);"></div>
                     </div>
                     <div class="progress-bar-custom" style="background-color: #4f46e540;">
-                        <div class="progress-fill" style="width: ' . ($total_content > 0 ? round(($stats['total_comments'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--info-color);"></div>
+                        <div class="progress" style="width: ' . ($total_content > 0 ? round(($stats['total_comments'] / $total_content) * 100, 1) : 0) . '%; background-color: var(--info-color);"></div>
                     </div>
                 </div>
             </div>
@@ -259,7 +259,7 @@ $content = '
         <div class="row">
             <div class="col-md-4">
                 <div class="chart-container">
-                    <h5 class="mb-3"><i class="fas fa-trophy me-2"></i>Top 5 Penanya</h5>
+                    <h5 class="mb-3"><i class="fas fa-trophy me-2"></i>Top 10 Penanya</h5>
                     <div class="list-group">';
 
 foreach ($top_questioners as $index => $user) {
@@ -281,7 +281,7 @@ $content .= '
             </div>
             <div class="col-md-4">
                 <div class="chart-container">
-                    <h5 class="mb-3"><i class="fas fa-comment me-2"></i>Top 5 Penjawab</h5>
+                    <h5 class="mb-3"><i class="fas fa-comment me-2"></i>Top 10 Penjawab</h5>
                     <div class="list-group">';
 
 foreach ($top_answerers as $index => $user) {
@@ -320,57 +320,6 @@ foreach ($recent_questions as $question) {
 }
 
 $content .= '
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="chart-container">
-                    <h5 class="mb-3"><i class="fas fa-user-plus me-2"></i>User Baru</h5>
-                    <div class="list-group">';
-
-foreach ($recent_users as $user) {
-    $role_badge = ($user['role'] === 'admin') ? 'bg-danger' : 'bg-primary';
-    $role_text = ($user['role'] === 'admin') ? 'Admin' : 'User';
-    
-    $content .= '
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <strong>' . htmlspecialchars($user['nama']) . '</strong>
-                                    <br><small class="text-muted">' . htmlspecialchars($user['email']) . '</small>
-                                    <br><span class="badge ' . $role_badge . '">' . $role_text . '</span>
-                                </div>
-                            </div>
-                        </div>';
-}
-
-$content .= '
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="chart-container">
-                    <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Informasi Sistem</h5>
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <strong><i class="fas fa-server me-2"></i>Status Database</strong>
-                            <span class="badge bg-success">Online</span>
-                        </div>
-                        <div class="list-group-item">
-                            <strong><i class="fas fa-code me-2"></i>Version PHP</strong>
-                            <span class="badge bg-info">' . PHP_VERSION . '</span>
-                        </div>
-                        <div class="list-group-item">
-                            <strong><i class="fas fa-database me-2"></i>Total Records</strong>
-                            <span class="badge bg-primary">' . number_format($stats['total_users'] + $stats['total_questions'] + $stats['total_answers'] + $stats['total_comments']) . '</span>
-                        </div>
-                        <div class="list-group-item">
-                            <strong><i class="fas fa-clock me-2"></i>Server Time</strong>
-                            <span class="badge bg-secondary">' . date('Y-m-d H:i:s') . '</span>
-                        </div>
                     </div>
                 </div>
             </div>
