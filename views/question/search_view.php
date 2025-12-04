@@ -85,7 +85,6 @@ if (!empty($query)) {
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="question-meta">
                                 <span><i class="fas fa-comment me-1"></i>' . $question['total_jawaban'] . ' jawaban</span>
-                                <span><i class="fas fa-eye me-1"></i>' . rand(10, 500) . ' views</span>
                                 <span><i class="fas fa-clock me-1"></i>' . formatTime($question['tanggal_post']) . '</span>
                             </div>
                             <div class="d-flex align-items-center">

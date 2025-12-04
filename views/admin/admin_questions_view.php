@@ -260,9 +260,6 @@ foreach ($questions as $q) {
                         <div class="stat-item">
                             <i class="fas fa-comments me-1"></i>' . $q['total_komentar'] . ' Komentar
                         </div>
-                        <div class="stat-item">
-                            <i class="fas fa-eye me-1"></i>' . rand(50, 500) . ' Views
-                        </div>
                     </div>
                     
                     <div class="question-meta">
