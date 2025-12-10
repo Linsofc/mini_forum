@@ -8,8 +8,11 @@ require_once __DIR__ . '/../models/comment_model.php';
 require_once __DIR__ . '/../models/vote_model.php';
 require_once __DIR__ . '/../models/reputation_model.php';
 
-function handle_index_page() {
-    if (!isLoggedIn()) { redirect('login.php'); }
+function handle_index_page()
+{
+    if (!isLoggedIn()) {
+        redirect('login.php');
+    }
 
     $conn = get_db_connection();
 
@@ -31,7 +34,7 @@ function handle_index_page() {
     if ($tag_filter) {
         $tag_info = get_tag_by_id($conn, $tag_filter);
     }
-    
+
     $data = [
         'questions' => $questions,
         'total_questions' => $total_questions,
@@ -50,10 +53,13 @@ function handle_index_page() {
     require_once __DIR__ . '/../views/layout.php';
 }
 
-function handle_question_page() {
-    if (!isLoggedIn()) { redirect('login.php'); }
+function handle_question_page()
+{
+    if (!isLoggedIn()) {
+        redirect('login.php');
+    }
 
-    $conn = get_db_connection(); 
+    $conn = get_db_connection();
     $id = intval($_GET['id'] ?? 0);
 
     if ($id <= 0) {
@@ -98,13 +104,13 @@ function handle_question_page() {
 
                     if (!empty($comment_text)) {
                         $result = false;
-                        
+
                         if ($comment_type === 'question') {
-                            $result = create_komentar($conn, getUserId(), $comment_text, $id, null, $id_komentar_root, $id_komentar_reply_to); // <-- $conn DIPASS
+                            $result = create_komentar($conn, getUserId(), $comment_text, $id, null, $id_komentar_root, $id_komentar_reply_to);
                         } else {
-                            $result = create_komentar($conn, getUserId(), $comment_text, null, $target_id, $id_komentar_root, $id_komentar_reply_to); // <-- $conn DIPASS
+                            $result = create_komentar($conn, getUserId(), $comment_text, null, $target_id, $id_komentar_root, $id_komentar_reply_to);
                         }
-                        
+
                         if ($result) {
                             trigger_reputation_action($conn, 'NEW_COMMENT', getUserId());
                             $_SESSION['success'] = "Komentar berhasil ditambahkan!";
@@ -121,7 +127,7 @@ function handle_question_page() {
     $question_comments = get_komentar_by_pertanyaan($conn, $id);
     $question_tags = get_tags_by_pertanyaan($conn, $id);
     $user_vote_question = get_user_vote($conn, getUserId(), $id, null);
-    
+
     foreach ($answers as &$answer) {
         $answer['comments'] = get_komentar_by_jawaban($conn, $answer['id_jawaban']);
         $answer['user_vote'] = get_user_vote($conn, getUserId(), null, $answer['id_jawaban']);
@@ -129,7 +135,7 @@ function handle_question_page() {
     unset($answer);
 
     mysqli_close($conn);
-    
+
     $data = [
         'id' => $id,
         'question' => $question,
@@ -145,26 +151,29 @@ function handle_question_page() {
     require_once __DIR__ . '/../views/layout.php';
 }
 
-function handle_ask_page() {
-    if (!isLoggedIn()) { redirect('login.php'); }
-    
+function handle_ask_page()
+{
+    if (!isLoggedIn()) {
+        redirect('login.php');
+    }
+
     $conn = get_db_connection();
-    
+
     $judul_prev = sanitize($_POST['judul'] ?? '');
     $isi_prev = sanitize($_POST['isi'] ?? '');
     $tags_input_prev = sanitize($_POST['tags_input'] ?? '');
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $judul = $judul_prev; 
+        $judul = $judul_prev;
         $isi = $isi_prev;
-        $tags_input = $tags_input_prev; 
-        
+        $tags_input = $tags_input_prev;
+
         if (empty($judul) || empty($isi)) {
             $_SESSION['error'] = "Judul dan isi pertanyaan tidak boleh kosong!";
             mysqli_close($conn);
             redirect('ask.php');
         }
-        
+
         $final_tag_ids = [];
         $tag_names = array_map('trim', array_filter(explode(',', $tags_input)));
 
@@ -191,17 +200,17 @@ function handle_ask_page() {
                 $final_tag_ids[] = $existing_tag['id_tag'];
             }
         }
-        
+
         $final_tag_ids = array_unique($final_tag_ids);
-        
+
         if (empty($final_tag_ids)) {
-             $_SESSION['error'] = "Tag yang dimasukkan tidak valid atau tidak bisa dibuat!";
-             mysqli_close($conn);
-             redirect('ask.php');
+            $_SESSION['error'] = "Tag yang dimasukkan tidak valid atau tidak bisa dibuat!";
+            mysqli_close($conn);
+            redirect('ask.php');
         }
 
         $id_pertanyaan = create_pertanyaan($conn, getUserId(), $judul, $isi);
-        
+
         if ($id_pertanyaan) {
             foreach ($final_tag_ids as $tag_id) {
                 add_question_tag($conn, $id_pertanyaan, $tag_id);
@@ -216,7 +225,7 @@ function handle_ask_page() {
             redirect('ask.php');
         }
     }
-    
+
     mysqli_close($conn);
 
     $data = [
@@ -231,11 +240,14 @@ function handle_ask_page() {
     require_once __DIR__ . '/../views/layout.php';
 }
 
-function handle_search_page() {
-    if (!isLoggedIn()) { redirect('login.php'); }
+function handle_search_page()
+{
+    if (!isLoggedIn()) {
+        redirect('login.php');
+    }
 
     $conn = get_db_connection();
-    
+
     $query = sanitize($_GET['q'] ?? '');
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $per_page = 10;
@@ -248,7 +260,7 @@ function handle_search_page() {
         $results = search_pertanyaan($conn, $query, $per_page, $offset);
         $total_results = count($results);
     }
-    
+
     mysqli_close($conn);
 
     $data = [
@@ -264,4 +276,3 @@ function handle_search_page() {
     $content = ob_get_clean();
     require_once __DIR__ . '/../views/layout.php';
 }
-?>
